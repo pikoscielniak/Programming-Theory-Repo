@@ -12,7 +12,7 @@ public class Grizzly : Enemy
     {
     }
 
-    protected override bool IsInRange { get; }
+    protected override bool PlayerIsInRange { get; }
 
     protected override void Walk()
     {

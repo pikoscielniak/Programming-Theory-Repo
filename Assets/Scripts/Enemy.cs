@@ -10,7 +10,7 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsInRange)
+        if (PlayerIsInRange)
         {
             Chase();
         }
@@ -29,7 +29,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     // POLYMORPHISM
-    protected abstract bool IsInRange { get; }
+    protected abstract bool PlayerIsInRange { get; }
 
     // POLYMORPHISM
     protected abstract void Walk();

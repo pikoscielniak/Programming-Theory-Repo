@@ -1,4 +1,5 @@
 // INHERITANCE
+
 public class Bunny : Enemy
 {
     // Start is called before the first frame update
@@ -11,10 +12,11 @@ public class Bunny : Enemy
     {
     }
 
-    protected override bool IsInRange { get; }
+    protected override bool PlayerIsInRange { get; }
 
     protected override void Walk()
     {
+        // choose direction and go there
         throw new System.NotImplementedException();
     }
 
