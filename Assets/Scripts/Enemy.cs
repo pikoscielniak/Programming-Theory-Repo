@@ -2,11 +2,13 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody))]
-// [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] [Range(1, 100)] private float speed;
     [SerializeField] [Range(1, 500)] private float walkRadius;
+    [SerializeField] private Player player;
+    [SerializeField] private float fieldOfViewRadius = 1f;
 
     private Rigidbody _rigidbody;
     private NavMeshAgent _agent;
@@ -36,11 +38,31 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsPlayerInView)
+        {
+            WalkTowardsPlayer();
+        }
+        else
+        {
+            Wander();
+        }
+    }
+
+    private void Wander()
+    {
         if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
             _agent.SetDestination(RandomNavMeshLocation());
         }
     }
+
+    private void WalkTowardsPlayer()
+    {
+        _agent.SetDestination(player.transform.position);
+    }
+
+    // ENCAPSULATION
+    private bool IsPlayerInView => (player.transform.position - transform.position).magnitude < fieldOfViewRadius;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -49,9 +71,6 @@ public abstract class Enemy : MonoBehaviour
             Attack();
         }
     }
-
-    // POLYMORPHISM
-    protected abstract bool PlayerIsInRange { get; }
 
     // POLYMORPHISM
     protected abstract void Walk();

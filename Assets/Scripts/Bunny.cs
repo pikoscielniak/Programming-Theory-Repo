@@ -3,8 +3,6 @@
 public class Bunny : Enemy
 {
 
-    protected override bool PlayerIsInRange { get; }
-
     protected override void Walk()
     {
         // choose direction and go there

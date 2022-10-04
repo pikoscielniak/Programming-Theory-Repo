@@ -1,10 +1,7 @@
-
 // INHERITANCE
+
 public class Grizzly : Enemy
 {
-
-    protected override bool PlayerIsInRange { get; }
-
     protected override void Walk()
     {
         throw new System.NotImplementedException();

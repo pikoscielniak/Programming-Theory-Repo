@@ -3,8 +3,6 @@
 public class Zombie : Enemy
 {
 
-    protected override bool PlayerIsInRange { get; }
-
     protected override void Walk()
     {
         throw new System.NotImplementedException();
