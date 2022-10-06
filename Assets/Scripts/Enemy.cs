@@ -15,13 +15,15 @@ public abstract class Enemy : MonoBehaviour
     private NavMeshAgent _agent;
     private float _waitTimeBetweenAttacks = 1f;
     private Coroutine _attackCoroutine;
+    private GameManager _gameManager;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        _gameManager = GameManager.Get;
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = speed;
-        _agent.SetDestination(RandomNavMeshLocation());
     }
 
     private Vector3 RandomNavMeshLocation()
@@ -40,6 +42,11 @@ public abstract class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_gameManager.IsGameOn)
+        {
+            return;
+        }
+
         if (IsPlayerInView)
         {
             WalkTowardsPlayer();
@@ -73,7 +80,7 @@ public abstract class Enemy : MonoBehaviour
 
     private IEnumerator DoAttack()
     {
-        while (true)
+        while (!player.IsDead)
         {
             Attack(player);
             yield return new WaitForSeconds(_waitTimeBetweenAttacks);
@@ -85,6 +92,11 @@ public abstract class Enemy : MonoBehaviour
     {
         if (IsPlayer(collision))
         {
+            if (_attackCoroutine != null)
+            {
+                StopCoroutine(_attackCoroutine);
+            }
+
             StartAttacking();
         }
     }
@@ -98,7 +110,10 @@ public abstract class Enemy : MonoBehaviour
     {
         if (IsPlayer(other))
         {
-            StopCoroutine(_attackCoroutine);
+            if (_attackCoroutine != null)
+            {
+                StopCoroutine(_attackCoroutine);
+            }
         }
     }
 

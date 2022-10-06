@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,6 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField] float speed = 2;
     [SerializeField] float rotationSpeed = 360;
     [SerializeField] private int initHealth = 100;
+    [SerializeField] private TextMeshProUGUI healthText;
+    private GameManager _gameManager;
 
     private int _health;
 
@@ -13,13 +16,25 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        _gameManager = GameManager.Get;
         _health = initHealth;
         _rigidbody = GetComponent<Rigidbody>();
+        SetHealthText();
+    }
+
+    private void SetHealthText()
+    {
+        healthText.text = $"Health: {_health}";
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!_gameManager.IsGameOn)
+        {
+            return;
+        }
+
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var moveVector = new Vector3(horizontal, 0, vertical);
@@ -40,7 +55,6 @@ public class Player : MonoBehaviour
 
     public void TakeLive(int howMuch)
     {
-        Debug.Log($"IsDead: {IsDead}, health: {_health}");
         if (IsDead)
         {
             return;
@@ -51,5 +65,12 @@ public class Player : MonoBehaviour
         {
             _health = 0;
         }
+
+        if (IsDead)
+        {
+            _gameManager.GameLost();
+        }
+
+        SetHealthText();
     }
 }
