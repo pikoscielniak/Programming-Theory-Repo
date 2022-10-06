@@ -157,6 +157,7 @@ MonoBehaviour:
   gameLostPanel: {fileID: 1887559261}
   onGamePanel: {fileID: 1467678068}
   gameDurationText: {fileID: 1177563715}
+  player: {fileID: 2075702346}
 --- !u!4 &32813952
 Transform:
   m_ObjectHideFlags: 0

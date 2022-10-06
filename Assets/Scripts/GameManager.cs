@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameLostPanel;
     [SerializeField] private GameObject onGamePanel;
     [SerializeField] private TextMeshProUGUI gameDurationText;
+    [SerializeField] private Player player;
 
     private readonly List<GameObject> _panels = new(4);
     private float _gameDuration;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
         _gameDuration = GameDurationsForLevel[level];
         _startTime = Time.time;
         _isGameOn = true;
+        player.StartNewGame();
     }
 
     private void Update()

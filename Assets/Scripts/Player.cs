@@ -73,4 +73,10 @@ public class Player : MonoBehaviour
 
         SetHealthText();
     }
+
+    public void StartNewGame()
+    {
+        _health = initHealth;
+        SetHealthText();
+    }
 }
