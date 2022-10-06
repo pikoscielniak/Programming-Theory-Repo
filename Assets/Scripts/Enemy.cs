@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -10,13 +12,13 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private float fieldOfViewRadius = 1f;
 
-    private Rigidbody _rigidbody;
     private NavMeshAgent _agent;
+    private float _waitTimeBetweenAttacks = 1f;
+    private Coroutine _attackCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = speed;
         _agent.SetDestination(RandomNavMeshLocation());
@@ -64,19 +66,41 @@ public abstract class Enemy : MonoBehaviour
     // ENCAPSULATION
     private bool IsPlayerInView => (player.transform.position - transform.position).magnitude < fieldOfViewRadius;
 
-    private void OnCollisionEnter(Collision collision)
+    private void StartAttacking()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        _attackCoroutine = StartCoroutine(DoAttack());
+    }
+
+    private IEnumerator DoAttack()
+    {
+        while (true)
         {
             Attack();
+            yield return new WaitForSeconds(_waitTimeBetweenAttacks);
+        }
+        // ReSharper disable once IteratorNeverReturns coroutine is killed
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (IsPlayer(collision))
+        {
+            StartAttacking();
         }
     }
 
-    // POLYMORPHISM
-    protected abstract void Walk();
+    private static bool IsPlayer(Collision collision)
+    {
+        return collision.gameObject.CompareTag("Player");
+    }
 
-    // POLYMORPHISM
-    protected abstract void Chase();
+    private void OnCollisionExit(Collision other)
+    {
+        if (IsPlayer(other))
+        {
+            StopCoroutine(_attackCoroutine);
+        }
+    }
 
     // POLYMORPHISM
     protected abstract void Attack();
