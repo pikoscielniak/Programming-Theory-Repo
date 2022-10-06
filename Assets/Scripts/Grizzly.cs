@@ -1,11 +1,13 @@
-// INHERITANCE
 
 using UnityEngine;
 
+// INHERITANCE
 public class Grizzly : Enemy
 {
-    protected override void Attack()
+    [SerializeField] private int damagePower = 6;
+
+    protected override void Attack(Player player)
     {
-        Debug.Log("Grizzly attack");
+        player.TakeLive(damagePower);
     }
 }

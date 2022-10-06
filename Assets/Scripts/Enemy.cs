@@ -75,7 +75,7 @@ public abstract class Enemy : MonoBehaviour
     {
         while (true)
         {
-            Attack();
+            Attack(player);
             yield return new WaitForSeconds(_waitTimeBetweenAttacks);
         }
         // ReSharper disable once IteratorNeverReturns coroutine is killed
@@ -103,5 +103,5 @@ public abstract class Enemy : MonoBehaviour
     }
 
     // POLYMORPHISM
-    protected abstract void Attack();
+    protected abstract void Attack(Player player);
 }

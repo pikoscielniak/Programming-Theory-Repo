@@ -1,11 +1,13 @@
-// INHERITANCE
 
 using UnityEngine;
 
+// INHERITANCE
 public class Bunny : Enemy
 {
-    protected override void Attack()
+    [SerializeField] private int damagePower = 10;
+
+    protected override void Attack(Player player)
     {
-        Debug.Log("Bunny attack");
+        player.TakeLive(damagePower);
     }
 }

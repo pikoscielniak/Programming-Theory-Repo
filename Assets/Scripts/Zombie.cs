@@ -1,11 +1,13 @@
-// INHERITANCE
 
 using UnityEngine;
 
+// INHERITANCE
 public class Zombie : Enemy
 {
-    protected override void Attack()
+    [SerializeField] private int damagePower = 5;
+
+    protected override void Attack(Player player)
     {
-        Debug.Log("Zombie attack");
+        player.TakeLive(damagePower);
     }
 }

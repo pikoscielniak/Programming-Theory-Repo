@@ -697,6 +697,7 @@ MonoBehaviour:
   walkRadius: 100
   player: {fileID: 2075702346}
   fieldOfViewRadius: 3
+  damagePower: 6
 --- !u!195 &900281120
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -983,6 +984,7 @@ MonoBehaviour:
   walkRadius: 150
   player: {fileID: 2075702346}
   fieldOfViewRadius: 1
+  damagePower: 10
 --- !u!195 &1257094178
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1170,6 +1172,7 @@ MonoBehaviour:
   walkRadius: 100
   player: {fileID: 2075702346}
   fieldOfViewRadius: 2
+  damagePower: 5
 --- !u!195 &1466475450
 NavMeshAgent:
   m_ObjectHideFlags: 0
