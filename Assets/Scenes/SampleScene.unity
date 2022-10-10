@@ -1533,7 +1533,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 712330744}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 32813951}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &712330744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3584,7 +3596,7 @@ MonoBehaviour:
   speed: 1
   walkRadius: 100
   player: {fileID: 2075702346}
-  fieldOfViewRadius: 2
+  fieldOfViewRadius: 8
   damagePower: 5
 --- !u!195 &1466475450
 NavMeshAgent:
@@ -4749,7 +4761,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8784727255169792597, guid: 08a3334acf59dfe4c99cbdd135016a65, type: 3}
       propertyPath: speed
-      value: 0.18
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8784727255169792597, guid: 08a3334acf59dfe4c99cbdd135016a65, type: 3}
       propertyPath: healthText
